@@ -18,8 +18,16 @@ app.use('/', (req,res)=>{
 app.listen(PORT, ()=>{
     console.log(`listening on ${PORT}`)
 })
+//trying to immatate .then promise in async await syntax
+// (async function(){
+//     try{
+//         const dbUsage = await db.authenticate();
+//         console.log('connected to the dataase');
+//     } catch(error){
+//         console.log(error);
+//     }
+// })();
 
-db.authenticate().
-then(() => {
+db.authenticate().then(() => {
   console.log('connected to the database');
-})
+});
