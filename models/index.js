@@ -1,43 +1,49 @@
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://localhost:5432/wikistack');
-
-const User = db.define('users', {
-    name: Sequelize.STRING,
-    email: Sequlize.STRING
-});
-
-const Page = db.define('pages',{
-    title: Sequelize.STRING,
-    slug: Sequlize.TEXT,
-    content: Sequelize.TEXT,
-    status: Sequlize.BOOLEAN
-});
+const PORT = 3000;
 
 const Page = db.define('page', {
     title: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false
     },
     slug: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false
     },
     content: {
-      type: Sequelize.TEXT
+      type: Sequelize.TEXT,
+      allowNull: false
     },
     status: {
-      type: Sequelize.ENUM('open', 'closed')
+      type: Sequelize.ENUM('open', 'closed'),
+      defaultValue: 'open'
     }
   });
   
   const User = db.define('user', {
     name: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false
     },
     email: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+          isEmail: true
+      }
     }
   });
   
 module.exports = { Page, User };
+
+const init = async () => {
+    await db.sync({force: true});
+
+    server.listen(PORT, () => {
+        console.log(`Server is listening on port ${PORT}`)
+    })
+};
 
 // module.exports = {
 //   db

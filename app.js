@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const app = express();
 // const index = require('./views');
 const layout = require('./views/layout.js')
-const { db } = require('./models');
+const { Page, User } = require('./models');
 
 const PORT = 3000;
 
@@ -15,9 +15,15 @@ app.use('/', (req,res)=>{
 
 
 
-app.listen(PORT, ()=>{
+app.listen(PORT, async ()=>{
     console.log(`listening on ${PORT}`)
-})
+    // try {
+    //     await Page.sync();
+    //     await User.sync();
+    // } catch (error) {
+    //     console.log(error);
+    // };
+});
 //trying to immatate .then promise in async await syntax
 // (async function(){
 //     try{
@@ -28,6 +34,6 @@ app.listen(PORT, ()=>{
 //     }
 // })();
 
-db.authenticate().then(() => {
-  console.log('connected to the database');
-});
+// db.authenticate().then(() => {
+//   console.log('connected to the database');
+// });
