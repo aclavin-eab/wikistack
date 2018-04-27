@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://localhost:5432/wikistack');
-const PORT = 3000;
+const PORT = 5432;
 
 const Page = db.define('page', {
     title: {

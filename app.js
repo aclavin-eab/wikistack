@@ -9,10 +9,13 @@ const PORT = 3000;
 
 app.use(morgan('dev'));
 app.use(express.static(`${__dirname}./public`));
-app.use('/', (req,res)=>{
-    res.send(layout(''))
-}) // line 4 already required;
 
+app.use('/wiki', require('./routes/wiki'));
+app.use('/user', require('./routes/user'));
+
+app.use('/', (req,res)=>{
+    res.send('hey')
+}) // line 4 already required;
 
 
 app.listen(PORT, async ()=>{
