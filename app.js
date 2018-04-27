@@ -4,18 +4,20 @@ const app = express();
 // const index = require('./views');
 const layout = require('./views/layout.js')
 const { Page, User } = require('./models');
+const bodyparser = require('body-parser')
 
 const PORT = 3000;
 
 app.use(morgan('dev'));
+app.use(bodyparser({extended: false}));
 app.use(express.static(`${__dirname}./public`));
 
 app.use('/wiki', require('./routes/wiki'));
 app.use('/user', require('./routes/user'));
 
 app.use('/', (req,res)=>{
-    res.send('hey')
-}) // line 4 already required;
+    res.redirect('/wiki');
+}); // line 4 already required;
 
 
 app.listen(PORT, async ()=>{
