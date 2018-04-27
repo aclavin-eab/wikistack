@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const app = express();
 // const index = require('./views');
 const layout = require('./views/layout.js')
+const { db } = require('./models');
 
 const PORT = 3000;
 
@@ -16,4 +17,9 @@ app.use('/', (req,res)=>{
 
 app.listen(PORT, ()=>{
     console.log(`listening on ${PORT}`)
+})
+
+db.authenticate().
+then(() => {
+  console.log('connected to the database');
 })
