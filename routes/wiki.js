@@ -3,9 +3,12 @@ const router = express.Router();
 const addPage = require('../views/addPage.js')
 const { Page } = require("../models");
 const wikipage = require('../views/wikipage.js')
+const mainPage = require('../views/main.js')
 
 router.get('/', async (req, res, next) => {
-    res.send('HEY!');
+    const pages = await Page.findAll()
+    //console.log(pages)
+    res.send(mainPage(pages));
 });
 
 router.get('/add', async (req, res, next) => {
@@ -19,7 +22,7 @@ router.get('/:slug', async (req, res, next) => {
                 slug: req.params.slug
             }
         });
-        res.json(wikipage(page));
+        res.send(wikipage(page));
     } catch (error) {next(error)}
 });
 
@@ -34,7 +37,7 @@ router.post('/', async (req, res, next) => {
       // note: `.save` returns a promise.
       try {
         await page.save();
-        res.redirect('/');
+        res.redirect('/wiki/' + page.slug);
       } catch (error) { next(error) }
 });
 

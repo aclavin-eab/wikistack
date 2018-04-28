@@ -38,12 +38,14 @@ const Page = db.define('page', {
 module.exports = { Page, User };
 
 const init = async () => {
-    await db.sync({force: true});
+    await db.sync();
 
     server.listen(PORT, () => {
         console.log(`Server is listening on port ${PORT}`)
     })
 };
+
+init();
 
 // module.exports = {
 //   db

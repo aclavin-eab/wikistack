@@ -36,4 +36,4 @@ module.exports = (content) => html`<!DOCTYPE html>
         WIKISTACK by Fullstack Academy
       </div>
     </body>
-  </html>`;
+  </html>`

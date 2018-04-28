@@ -1,33 +1,27 @@
 const express = require('express');
 const morgan = require('morgan');
-const app = express();
 // const index = require('./views');
 const layout = require('./views/layout.js')
 const { Page, User } = require('./models');
-const bodyparser = require('body-parser')
+const body = require('body-parser');
+const app = express();
 
 const PORT = 3000;
 
 app.use(morgan('dev'));
-app.use(bodyparser({extended: false}));
 app.use(express.static(`${__dirname}./public`));
+app.use(body.urlencoded());
 
 app.use('/wiki', require('./routes/wiki'));
 app.use('/user', require('./routes/user'));
 
-app.use('/', (req,res)=>{
+app.get('/', (req,res)=>{
     res.redirect('/wiki');
-}); // line 4 already required;
+}) // line 4 already required;
 
 
-app.listen(PORT, async ()=>{
+app.listen(PORT, () => {
     console.log(`listening on ${PORT}`)
-    // try {
-    //     await Page.sync();
-    //     await User.sync();
-    // } catch (error) {
-    //     console.log(error);
-    // };
 });
 //trying to immatate .then promise in async await syntax
 // (async function(){
